@@ -29,6 +29,8 @@ RED = (180, 35, 24)
 GOLD = (201, 149, 44)
 TEAL = (13, 110, 110)
 GREEN = (34, 110, 60)
+BROWN = (146, 90, 32)
+PURPLE = (96, 62, 148)
 GREY = (90, 96, 108)
 LIGHT_GREY = (226, 222, 210)
 WHITE = (255, 255, 255)
@@ -223,61 +225,72 @@ def write_png(canvas, path):
 
 
 # ---------------------------------------------------------------------------
-# The day's news, as reported on 20 November 2026.
-# Sources: Just Security Early Edition 20 Nov 2026; SCMP world headlines;
-# One Turn's 20 Nov 2026 day page; The Hindu Morning Digest 20 Nov 2026;
-# Outlook India live updates 20 Nov 2026; Dow Jones via Morningstar.
+# The day's news, as reported on 20 November 2026. Every headline below
+# was checked against reporting from that day: One Turn's 20 Nov day page
+# (52 stories, sourced from BBC, Reuters, Al Jazeera, The Hindu and more),
+# Just Security Early Edition 20 Nov, SCMP, HRW, NDTV and The Hindu.
+# 38 stories in 7 regions: the lead plus one headline per story, each
+# kept short enough to read at a glance.
 # ---------------------------------------------------------------------------
 LEAD = {
     "kicker": "DIPLOMACY  -  SHENZHEN",
     "headline": "TRUMP, XI AND PUTIN SIGN JOINT PEACE DECLARATION",
-    "sub": "First three-way summit ends with a four-point declaration after the leaders meet in Shenzhen.",
+    "sub": "Four-point declaration on UN reform, energy, state immunity and nuclear risk after the first three-way summit.",
     "colour": NAVY,
 }
 
-STORIES = [
-    {
-        "kicker": "JUSTICE  -  THE HAGUE",
-        "headline": "WORLD COURT RULES MYANMAR COMMITTED GENOCIDE",
-        "sub": "ICJ finds Myanmar responsible for genocide against the Rohingya, the first such ruling against a state.",
-        "colour": TEAL,
-        "icon": "scales",
-    },
-    {
-        "kicker": "WAR IN UKRAINE  -  KYIV",
-        "headline": "RUSSIAN STRIKES HIT KYIV: 8 KILLED",
-        "sub": "Overnight attacks target bridges and kill eight; 28 hurt across nine regions.",
-        "colour": RED,
-        "icon": "blast",
-    },
-    {
-        "kicker": "MARKETS  -  NEW YORK",
-        "headline": "ANTHROPIC SHARES UP 17% ON DEBUT",
-        "sub": "AI firm closes near $97 after a $83 Nasdaq debut, as US stocks fall for a fifth straight day.",
-        "colour": GREEN,
-        "icon": "chart",
-    },
-    {
-        "kicker": "MIDDLE EAST  -  RIYADH",
-        "headline": "HOUTHI MISSILE DAMAGES RIYADH TOWER",
-        "sub": "Strike blows out windows across eight floors of the Saudi sovereign wealth fund tower.",
-        "colour": GOLD,
-        "icon": "tower",
-    },
-    {
-        "kicker": "WEATHER  -  INDIA",
-        "headline": "CYCLONE AKVAN: 300,000 EVACUATED",
-        "sub": "Storm makes landfall near Gopalpur in Odisha after shelters are readied across the coast.",
-        "colour": BLUE,
-        "icon": "storm",
-    },
-    {
-        "kicker": "ALSO TODAY",
-        "headline": "TRUMP: NO IRAN DECISION UNTIL NEW YEAR",
-        "sub": "US Senate blocks a measure to end the Iran war, 51-48. EU and UK hold a summit in Brussels.",
-        "colour": GREY,
-        "icon": "globe",
-    },
+REGIONS = [
+    ("EUROPE", BLUE, [
+        "KYIV STRIKES KILL 8; 28 HURT IN 9 REGIONS",
+        "ALLIES IN BERLIN READY TO TALK TO RUSSIA",
+        "CRIMEA BRIDGE HIT 3RD TIME IN 4 DAYS",
+        "RUSSIA VIOLATES POLAND AIRSPACE",
+        "ESTONIA TO SHUT RUSSIA BORDER 6 MONTHS",
+        "EU-UK SUMMIT AGREES YOUTH MOBILITY DEAL",
+    ]),
+    ("ASIA-PACIFIC", TEAL, [
+        "ICJ: MYANMAR COMMITTED GENOCIDE VS ROHINGYA",
+        "CYCLONE AKVAN: 300,000 EVACUATED IN ODISHA",
+        "TAKAICHI GETS COOL RECEPTION AT APEC",
+        "S. KOREA ORDERS RETRIAL OF EX-PM HAN",
+        "BANGLADESH VIOLENCE BEFORE HASINA RETURN",
+        "PAKISTAN ARMY KILLS 22 MILITANTS IN RAIDS",
+    ]),
+    ("MIDDLE EAST", GOLD, [
+        "HOUTHI MISSILE DAMAGES RIYADH PIF TOWER",
+        "HORMUZ TANKER ATTACKS INTENSIFY",
+        "TRUMP: NO IRAN DECISION UNTIL NEW YEAR",
+        "ISRAELI TROOPS CROSS GAZA YELLOW LINE",
+        "IRAQ ORDERS IRAN-BACKED MILITIA OUT",
+    ]),
+    ("AMERICAS", GREEN, [
+        "SENATE BLOCKS BID TO END IRAN WAR 51-48",
+        "HAITI FORCES KILL 34 SUSPECTED GANG MEMBERS",
+        "BUKELE REGISTERS FOR THIRD TERM",
+        "US, VENEZUELA SIGN MILITARY DEAL",
+        "BRAZIL BANK SELLS $1BN AS REAL SLIDES 18%",
+        "COLOMBIA PROTESTS TAX PLAN; STRIKE CALLED",
+    ]),
+    ("MARKETS & TECH", NAVY_LIGHT, [
+        "ANTHROPIC SHARES UP 17% ON NASDAQ DEBUT",
+        "US STOCKS FALL 5TH STRAIGHT DAY; S&P -2%",
+        "NIKKEI -4.8%; SOFTBANK -16% IN AI ROUT",
+        "GOLD -4.2% AS DOLLAR AND YIELDS WEIGH",
+        "CALIFORNIA PROBES NVIDIA AFTER CEO QUITS",
+        "GTA 6 LAUNCH TOPS $2.3BN IN SALES",
+    ]),
+    ("AFRICA", BROWN, [
+        "KENYA: LAST EBOLA PATIENT DISCHARGED",
+        "SUDAN DRONE STRIKE KILLS 10 AT GOLD MINE",
+        "DOZENS MISSING AFTER BOAT SINKS OFF SENEGAL",
+        "ETHIOPIA-ERITREA STRIKES RAISE WAR FEARS",
+    ]),
+    ("CLIMATE & WORLD", PURPLE, [
+        "COP31 DRAFT DROPS FOSSIL-FUEL PHASE-OUT",
+        "FIJI, TONGA DECLARE DISASTER IN DROUGHT",
+        "VOYAGER 1 REACHES ONE LIGHT-DAY FROM EARTH",
+        "UN CHIEF RACE STALLS AFTER EIGHT VOTES",
+    ]),
 ]
 
 
@@ -325,54 +338,72 @@ def draw_lead(canvas, x, y, w, h):
     canvas.rect(x, y, 10, h, RED)
     canvas.rect(x, y, w, 4, NAVY)
     tx = x + 28
-    canvas.text(tx, y + 22, LEAD["kicker"], 2, RED)
-    y2 = canvas.paragraph(tx, y + 52, LEAD["headline"], 3, INK, w - 220, 6)
-    canvas.paragraph(tx, y2 + 8, LEAD["sub"], 2, GREY, w - 220, 4)
-    # Three flag dots: United States, China, Russia.
-    fx = x + w - 150
-    fy = y + h // 2
-    canvas.circle(fx, fy, 26, RED)
-    canvas.rect(fx - 26, fy - 26, 52, 10, WHITE)
-    canvas.rect(fx - 26, fy + 16, 52, 10, WHITE)
-    canvas.circle(fx + 60, fy, 26, RED)
-    canvas.circle(fx + 60, fy, 8, GOLD)
-    # Russia: three horizontal stripes in a square flag chip.
-    canvas.rect(fx + 94, fy - 26, 52, 52, INK)
-    canvas.rect(fx + 95, fy - 25, 50, 16, WHITE)
-    canvas.rect(fx + 95, fy - 9, 50, 17, BLUE)
-    canvas.rect(fx + 95, fy + 8, 50, 17, RED)
+    canvas.text(tx, y + 14, LEAD["kicker"], 2, RED)
+    y2 = canvas.paragraph(tx, y + 40, LEAD["headline"], 3, INK, w - 250, 6)
+    canvas.paragraph(tx, y2 + 6, LEAD["sub"], 2, GREY, w - 250, 4)
+    # Three small flag chips: United States, China, Russia.
+    fx = x + w - 214
+    fy = y + h // 2 - 18
+    # United States: red and white stripes with a navy canton.
+    for i in range(7):
+        canvas.rect(fx, fy + i * 5, 52, 5, RED if i % 2 == 0 else WHITE)
+    canvas.rect(fx, fy, 22, 20, NAVY)
+    # China: red field with a gold star.
+    canvas.rect(fx + 62, fy, 52, 36, RED)
+    canvas.circle(fx + 78, fy + 14, 6, GOLD)
+    # Russia: white, blue and red horizontal stripes.
+    canvas.rect(fx + 124, fy, 52, 12, WHITE)
+    canvas.rect(fx + 124, fy + 12, 52, 12, BLUE)
+    canvas.rect(fx + 124, fy + 24, 52, 12, RED)
 
 
-def draw_story(canvas, story, x, y, w, h):
-    canvas.rect(x, y, w, h, WHITE)
-    canvas.rect(x, y, w, 6, story["colour"])
-    canvas.text(x + 16, y + 18, story["kicker"], 2, story["colour"])
-    draw_icon(canvas, story["icon"], x + w - 52, y + 62, story["colour"])
-    y2 = canvas.paragraph(x + 16, y + 46, story["headline"], 2, INK,
-                          w - 130, 3)
-    canvas.paragraph(x + 16, y2 + 4, story["sub"], 2, GREY, w - 130, 3)
+def draw_grid(canvas, x0, y0, col_w, gap_x):
+    """Three columns of region blocks; one short headline per story.
+    Returns the y just below the tallest column."""
+    columns = [
+        [REGIONS[0], REGIONS[3]],  # Europe + Americas
+        [REGIONS[1], REGIONS[2]],  # Asia-Pacific + Middle East
+        [REGIONS[4], REGIONS[5], REGIONS[6]],  # Markets + Africa + World
+    ]
+    bottom = y0
+    for ci, column in enumerate(columns):
+        x = x0 + ci * (col_w + gap_x)
+        y = y0
+        for name, colour, items in column:
+            canvas.rect(x, y, col_w, 24, colour)
+            canvas.text(x + 8, y + 5, name, 2, WHITE)
+            y += 30
+            for headline in items:
+                for line in canvas.wrap(headline, 2, col_w - 8)[:2]:
+                    canvas.text(x + 4, y, line, 2, INK)
+                    y += 17
+                y += 7
+            y += 6
+        bottom = max(bottom, y)
+    return bottom
 
 
 def draw_page():
     canvas = Canvas(WIDTH, HEIGHT, PAPER)
+    total = 1 + sum(len(items) for _, _, items in REGIONS)
     # Masthead.
-    canvas.rect(0, 0, WIDTH, 108, NAVY)
-    canvas.rect(0, 108, WIDTH, 4, GOLD)
-    canvas.text_centred(WIDTH // 2, 26, "THE WORLD IN ONE DAY", 5, WHITE)
-    canvas.text_centred(WIDTH // 2, 70, "FRIDAY 20 NOVEMBER 2026", 3, GOLD)
+    canvas.rect(0, 0, WIDTH, 92, NAVY)
+    canvas.rect(0, 92, WIDTH, 4, GOLD)
+    canvas.text_centred(WIDTH // 2, 18, "THE WORLD IN ONE DAY", 5, WHITE)
+    canvas.text_centred(WIDTH // 2, 58, "FRIDAY 20 NOVEMBER 2026", 3, GOLD)
     # Lead story.
-    draw_lead(canvas, 24, 132, WIDTH - 48, 208)
-    # Six stories in a 2 by 3 grid.
-    grid_y = 356
-    cell_w = (WIDTH - 48 - 16) // 2
-    cell_h = 196
-    for i, story in enumerate(STORIES):
-        gx = 24 + (i % 2) * (cell_w + 16)
-        gy = grid_y + (i // 2) * (cell_h + 14)
-        draw_story(canvas, story, gx, gy, cell_w, cell_h)
+    draw_lead(canvas, 24, 104, WIDTH - 48, 124)
+    # Section bar.
+    canvas.rect(24, 238, WIDTH - 48, 26, NAVY)
+    canvas.text(40, 244, "THE DAY IN %d STORIES  -  7 REGIONS" % total,
+                2, WHITE)
+    # Dense grid of the day's stories, on one white panel.
+    canvas.rect(24, 274, WIDTH - 48, 690, WHITE)
+    draw_grid(canvas, 24, 274, 312, 20)
     # Footer.
-    canvas.text_centred(WIDTH // 2, 988,
-                        "SIX STORIES FROM FRIDAY 20 NOVEMBER 2026", 2, GREY)
+    canvas.text_centred(WIDTH // 2, 990,
+                        "%d STORIES FROM FRIDAY 20 NOVEMBER 2026" % total,
+                        2, GREY)
     return canvas
 
 
