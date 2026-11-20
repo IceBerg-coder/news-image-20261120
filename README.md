@@ -4,7 +4,7 @@
 [![rank](https://make.fun/badge/news-image-20261120/IceBerg-coder/news-image-20261120/rank.svg)](https://make.fun/bounty/news-image-20261120/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261120)
 [![reward](https://make.fun/badge/news-image-20261120/IceBerg-coder/news-image-20261120/reward.svg)](https://make.fun/bounty/news-image-20261120?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261120)
 
-A program that draws a newspaper front page summing up the world news of Friday 20 November 2026 in 17 stories — the Trump-Xi-Putin summit in Shenzhen, the ICJ's ruling that Myanmar committed genocide against the Rohingya, the Russian strikes on Kyiv, Anthropic's Nasdaq debut, the Houthi missile hit on a Riyadh tower, Cyclone Akvan, and the day's markets — in pure-stdlib Python, with no network and no fonts on disk.
+A program that draws a newspaper front page summing up the world news of Friday 20 November 2026 in 35 stories — the Russian barrage that hit three Kyiv bridges, Cyclone Akvan's landfall in Odisha, Asia's AI sell-off, COP31 ending deadlocked, the UK-EU reset deal, missiles coming down in Poland, BepiColombo reaching Mercury, and 22 more — in pure-stdlib Python, with no network and no fonts on disk. Three drawn scenes, a six-number stat strip, a region bar, a numbered world map, and a date check that names the Thursday news left out on purpose.
 
 ## Run it
 
